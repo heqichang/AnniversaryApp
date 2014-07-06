@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8321E8401966A1140011C81A /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E83D1966A1140011C81A /* AbstractActionSheetPicker.m */; };
+		8321E8411966A1140011C81A /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E83F1966A1140011C81A /* ActionSheetDatePicker.m */; };
+		8321E8451966B1F80011C81A /* EditDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E8441966B1F80011C81A /* EditDateTableViewCell.m */; };
+		8321E847196796DC0011C81A /* SavedAnniversary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8321E846196796DC0011C81A /* SavedAnniversary.plist */; };
+		8321E84A19679F390011C81A /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E84919679F390011C81A /* MainTableViewCell.m */; };
 		833411831963ECEB009874F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411821963ECEB009874F7 /* Foundation.framework */; };
 		833411851963ECEB009874F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411841963ECEB009874F7 /* CoreGraphics.framework */; };
 		833411871963ECEB009874F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411861963ECEB009874F7 /* UIKit.framework */; };
@@ -14,13 +19,15 @@
 		8334118F1963ECEB009874F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8334118E1963ECEB009874F7 /* main.m */; };
 		833411931963ECEB009874F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 833411921963ECEB009874F7 /* AppDelegate.m */; };
 		833411961963ECEB009874F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 833411941963ECEB009874F7 /* Main.storyboard */; };
-		833411991963ECEB009874F7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833411981963ECEB009874F7 /* ViewController.m */; };
 		8334119B1963ECEB009874F7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8334119A1963ECEB009874F7 /* Images.xcassets */; };
 		833411A21963ECEB009874F7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411A11963ECEB009874F7 /* XCTest.framework */; };
 		833411A31963ECEB009874F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411821963ECEB009874F7 /* Foundation.framework */; };
 		833411A41963ECEB009874F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411861963ECEB009874F7 /* UIKit.framework */; };
 		833411AC1963ECEB009874F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 833411AA1963ECEB009874F7 /* InfoPlist.strings */; };
 		833411AE1963ECEB009874F7 /* AnniversaryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 833411AD1963ECEB009874F7 /* AnniversaryAppTests.m */; };
+		83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */; };
+		83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A21964EBC500D7A3D7 /* EditViewController.m */; };
+		83AF12A91964EC0B00D7A3D7 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +41,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8321E83C1966A1140011C81A /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		8321E83D1966A1140011C81A /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		8321E83E1966A1140011C81A /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		8321E83F1966A1140011C81A /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		8321E8431966B1F80011C81A /* EditDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDateTableViewCell.h; sourceTree = "<group>"; };
+		8321E8441966B1F80011C81A /* EditDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDateTableViewCell.m; sourceTree = "<group>"; };
+		8321E846196796DC0011C81A /* SavedAnniversary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SavedAnniversary.plist; sourceTree = "<group>"; };
+		8321E84819679F390011C81A /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
+		8321E84919679F390011C81A /* MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewCell.m; sourceTree = "<group>"; };
 		8334117F1963ECEB009874F7 /* AnniversaryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnniversaryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		833411821963ECEB009874F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		833411841963ECEB009874F7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +61,18 @@
 		833411911963ECEB009874F7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		833411921963ECEB009874F7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		833411951963ECEB009874F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		833411971963ECEB009874F7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		833411981963ECEB009874F7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8334119A1963ECEB009874F7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		833411A01963ECEB009874F7 /* AnniversaryAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnniversaryAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		833411A11963ECEB009874F7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		833411A91963ECEB009874F7 /* AnniversaryAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AnniversaryAppTests-Info.plist"; sourceTree = "<group>"; };
 		833411AB1963ECEB009874F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		833411AD1963ECEB009874F7 /* AnniversaryAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnniversaryAppTests.m; sourceTree = "<group>"; };
+		83AF129E1964EB9400D7A3D7 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
+		83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
+		83AF12A11964EBC500D7A3D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		83AF12A21964EBC500D7A3D7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
+		83AF12A71964EC0B00D7A3D7 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
+		83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +99,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8321E83B1966A0D70011C81A /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				8321E83C1966A1140011C81A /* AbstractActionSheetPicker.h */,
+				8321E83D1966A1140011C81A /* AbstractActionSheetPicker.m */,
+				8321E83E1966A1140011C81A /* ActionSheetDatePicker.h */,
+				8321E83F1966A1140011C81A /* ActionSheetDatePicker.m */,
+			);
+			name = Pickers;
+			sourceTree = "<group>";
+		};
+		8321E8421966B1C10011C81A /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				8321E8431966B1F80011C81A /* EditDateTableViewCell.h */,
+				8321E8441966B1F80011C81A /* EditDateTableViewCell.m */,
+				8321E84819679F390011C81A /* MainTableViewCell.h */,
+				8321E84919679F390011C81A /* MainTableViewCell.m */,
+			);
+			name = TableCells;
+			sourceTree = "<group>";
+		};
 		833411761963ECEB009874F7 = {
 			isa = PBXGroup;
 			children = (
@@ -112,11 +154,11 @@
 		833411881963ECEB009874F7 /* AnniversaryApp */ = {
 			isa = PBXGroup;
 			children = (
+				8321E83B1966A0D70011C81A /* Pickers */,
+				83AF129D1964EB5700D7A3D7 /* ViewController */,
 				833411911963ECEB009874F7 /* AppDelegate.h */,
 				833411921963ECEB009874F7 /* AppDelegate.m */,
 				833411941963ECEB009874F7 /* Main.storyboard */,
-				833411971963ECEB009874F7 /* ViewController.h */,
-				833411981963ECEB009874F7 /* ViewController.m */,
 				8334119A1963ECEB009874F7 /* Images.xcassets */,
 				833411891963ECEB009874F7 /* Supporting Files */,
 			);
@@ -130,6 +172,7 @@
 				8334118B1963ECEB009874F7 /* InfoPlist.strings */,
 				8334118E1963ECEB009874F7 /* main.m */,
 				833411901963ECEB009874F7 /* AnniversaryApp-Prefix.pch */,
+				8321E846196796DC0011C81A /* SavedAnniversary.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,6 +193,20 @@
 				833411AA1963ECEB009874F7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83AF129D1964EB5700D7A3D7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8321E8421966B1C10011C81A /* TableCells */,
+				83AF129E1964EB9400D7A3D7 /* MainTableViewController.h */,
+				83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */,
+				83AF12A11964EBC500D7A3D7 /* EditViewController.h */,
+				83AF12A21964EBC500D7A3D7 /* EditViewController.m */,
+				83AF12A71964EC0B00D7A3D7 /* DatePickerViewController.h */,
+				83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8334119B1963ECEB009874F7 /* Images.xcassets in Resources */,
+				8321E847196796DC0011C81A /* SavedAnniversary.plist in Resources */,
 				8334118D1963ECEB009874F7 /* InfoPlist.strings in Resources */,
 				833411961963ECEB009874F7 /* Main.storyboard in Resources */,
 			);
@@ -249,9 +307,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				833411991963ECEB009874F7 /* ViewController.m in Sources */,
+				83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */,
+				8321E8451966B1F80011C81A /* EditDateTableViewCell.m in Sources */,
 				833411931963ECEB009874F7 /* AppDelegate.m in Sources */,
+				8321E84A19679F390011C81A /* MainTableViewCell.m in Sources */,
 				8334118F1963ECEB009874F7 /* main.m in Sources */,
+				8321E8401966A1140011C81A /* AbstractActionSheetPicker.m in Sources */,
+				83AF12A91964EC0B00D7A3D7 /* DatePickerViewController.m in Sources */,
+				83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */,
+				8321E8411966A1140011C81A /* ActionSheetDatePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +520,7 @@
 				833411B31963ECEB009874F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		833411B41963ECEB009874F7 /* Build configuration list for PBXNativeTarget "AnniversaryAppTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +529,7 @@
 				833411B61963ECEB009874F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
