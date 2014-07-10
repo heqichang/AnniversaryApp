@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainTableViewController : UITableViewController
+@interface MainTableViewController : UITableViewController<UIGestureRecognizerDelegate>
 {
     NSMutableArray *dateArray;
+    NSOperationQueue *operationQueue;
 }
 @end

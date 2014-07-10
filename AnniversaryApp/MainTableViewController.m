@@ -36,33 +36,30 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     // NSBundle获取的资源文件无法修改
 //    NSBundle *bundle = [NSBundle mainBundle];
 //    NSString *path = [bundle pathForResource:@"SavedAnniversary" ofType:@"plist"];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath = [paths objectAtIndex:0];
-    NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
-    
     if (dateArray == nil) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+        NSString *plistPath = [paths objectAtIndex:0];
+        NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
+
+        // 如果文件不存在返回为nil
         dateArray = [[NSMutableArray alloc] initWithContentsOfFile:filename];
+        
+        if (dateArray == nil) {
+            dateArray = [[NSMutableArray alloc] init];
+        }
     }
-    
-    if (dateArray == nil) {
-        dateArray = [[NSMutableArray alloc] init];
-    }
-    
     
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
     
+    operationQueue = [[NSOperationQueue alloc] init];
+    operationQueue.maxConcurrentOperationCount = 1;
+    //[self.tableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     //NSLog(@"%@", dateArray);
     
 }
@@ -107,42 +104,61 @@
     
     NSTimeInterval distance = [past timeIntervalSinceNow];
     NSInteger iDat = distance / ( 86400 ) ;
-    NSString *distanceString = [NSString stringWithFormat:@"%d", abs(iDat)];
+    NSString *distanceString = [NSString stringWithFormat:@"%d", (iDat < 0 ? -1 * iDat : iDat)];
     
-    if (iDat < 0) {
+    if (iDat <= 0) {
         cell.daysLabel.textColor = [UIColor blueColor];
-    } else {
         
+    } else {
+        cell.daysLabel.textColor = [[UIColor alloc] initWithRed:(243.0/255) green:(90.0/255) blue:(7.0/255) alpha:1.0];
     }
     cell.daysLabel.text = distanceString;
-    
     cell.index = indexPath.row;
     
     return cell;
 }
 
 
-/*
+
+
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [tableView setEditing:YES animated:YES];
+//    return UITableViewCellEditingStyleDelete;
+//}
+
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        
+        [dateArray removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        [operationQueue addOperationWithBlock:^{
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+            NSString *plistPath = [paths objectAtIndex:0];
+            NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
+            
+            [dateArray writeToFile:filename atomically:YES];
+        }];
+    }
 }
-*/
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
 
 /*
 // Override to support rearranging the table view.

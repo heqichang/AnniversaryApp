@@ -70,8 +70,8 @@
             <objects>
                 <viewController id="wxM-J9-pIr" customClass="EditViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ugg-Sp-p1g"/>
-                        <viewControllerLayoutGuide type="bottom" id="dBj-NP-sfU"/>
+                        <viewControllerLayoutGuide type="top" id="GKR-Iy-scX"/>
+                        <viewControllerLayoutGuide type="bottom" id="kNY-Oo-F8a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OLT-64-imz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>

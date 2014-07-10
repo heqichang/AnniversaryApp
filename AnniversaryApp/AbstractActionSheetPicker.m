@@ -27,14 +27,25 @@
 
 #import "AbstractActionSheetPicker.h"
 #import <objc/message.h>
+#import <sys/utsname.h>
 
 BOOL OSAtLeast(NSString* v) {
     return [[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending;
 }
 
+BOOL isIPhone4() {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    NSString *modelName = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    return ([modelName rangeOfString:@"iPhone3"].location != NSNotFound);
+}
+
 @interface AbstractActionSheetPicker()
 
 @property (nonatomic, strong) UIBarButtonItem *barButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *doneBarButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *cancelBarButtonItem;
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, unsafe_unretained) id target;
 @property (nonatomic, assign) SEL successAction;
@@ -92,6 +103,12 @@ BOOL OSAtLeast(NSString* v) {
         else
             NSAssert(NO, @"Invalid origin provided to ActionSheetPicker ( %@ )", origin);
         
+        // Initialize default bar buttons so they can be overridden before the 'showActionSheetPicker' is called
+        UIBarButtonItem *cancelBtn = [self createButtonWithType:UIBarButtonSystemItemCancel target:self action:@selector(actionPickerCancel:)];
+        [self setCancelBarButtonItem:cancelBtn];
+        UIBarButtonItem *doneButton = [self createButtonWithType:UIBarButtonSystemItemDone target:self action:@selector(actionPickerDone:)];
+        [self setDoneBarButtonItem:doneButton];
+        
         //allows us to use this without needing to store a reference in calling class
         self.selfReference = self;
     }
@@ -116,7 +133,7 @@ BOOL OSAtLeast(NSString* v) {
     return nil;
 }
 
-- (void)notifyTarget:(id)target didSucceedWithAction:(SEL)successAction origin:(id)origin {    
+- (void)notifyTarget:(id)target didSucceedWithAction:(SEL)successAction origin:(id)origin {
     NSAssert(NO, @"This is an abstract class, you must use a subclass of AbstractActionSheetPicker (like ActionSheetStringPicker)");
 }
 
@@ -132,7 +149,10 @@ BOOL OSAtLeast(NSString* v) {
 #pragma mark - Actions
 
 - (void)showActionSheetPicker {
-    UIView *masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];    
+    UIView *masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];
+    if (isIPhone4()) {
+        masterView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
+    }
     self.toolbar = [self createPickerToolbarWithTitle:self.title];
     [masterView addSubview: self.toolbar];
     
@@ -146,7 +166,7 @@ BOOL OSAtLeast(NSString* v) {
         [masterView insertSubview: leftEdge atIndex: 0];
         [masterView insertSubview: rightEdge atIndex: 0];
     }
-
+    
     self.pickerView = [self configuredPickerView];
     NSAssert(_pickerView != NULL, @"Picker view failed to instantiate, perhaps you have invalid component data.");
     [masterView addSubview:_pickerView];
@@ -154,7 +174,7 @@ BOOL OSAtLeast(NSString* v) {
 }
 
 - (IBAction)actionPickerDone:(id)sender {
-    [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:[self storedOrigin]];    
+    [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:[self storedOrigin]];
     [self dismissPicker];
 }
 
@@ -167,11 +187,11 @@ BOOL OSAtLeast(NSString* v) {
 #if __IPHONE_4_1 <= __IPHONE_OS_VERSION_MAX_ALLOWED
     if (self.actionSheet)
 #else
-    if (self.actionSheet && [self.actionSheet isVisible])
+        if (self.actionSheet && [self.actionSheet isVisible])
 #endif
-        [_actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-    else if (self.popOverController && self.popOverController.popoverVisible)
-        [_popOverController dismissPopoverAnimated:YES];
+            [_actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+        else if (self.popOverController && self.popOverController.popoverVisible)
+            [_popOverController dismissPopoverAnimated:YES];
     self.actionSheet = nil;
     self.popOverController = nil;
     self.selfReference = nil;
@@ -202,10 +222,25 @@ BOOL OSAtLeast(NSString* v) {
     NSAssert(picker != NULL, @"PickerView is invalid");
     [picker selectRow:buttonValue inComponent:0 animated:YES];
     if ([self respondsToSelector:@selector(pickerView:didSelectRow:inComponent:)]) {
-        void (*objc_msgSendTyped)(id self, SEL _cmd, id pickerView, NSInteger row, NSInteger component) = (void*)objc_msgSend; // sending Integers as params
+        void (*objc_msgSendTyped)(id target, SEL _cmd, id pickerView, NSInteger row, NSInteger component) = (void*)objc_msgSend; // sending Integers as params
         objc_msgSendTyped(self, @selector(pickerView:didSelectRow:inComponent:), picker, buttonValue, 0);
     }
 }
+
+// Allow the user to specify a custom cancel button
+- (void) setCancelButton: (UIBarButtonItem *)button {
+    [button setTarget:self];
+    [button setAction:@selector(actionPickerCancel:)];
+    self.cancelBarButtonItem = button;
+}
+
+// Allow the user to specify a custom done button
+- (void) setDoneButton: (UIBarButtonItem *)button {
+    [button setTarget:self];
+    [button setAction:@selector(actionPickerDone:)];
+    self.doneBarButtonItem = button;
+}
+
 
 - (UIToolbar *)createPickerToolbarWithTitle:(NSString *)title  {
     CGRect frame = CGRectMake(0, 0, self.viewSize.width, 44);
@@ -215,25 +250,24 @@ BOOL OSAtLeast(NSString* v) {
     NSInteger index = 0;
     for (NSDictionary *buttonDetails in self.customButtons) {
         NSString *buttonTitle = [buttonDetails objectForKey:@"buttonTitle"];
-      //NSInteger buttonValue = [[buttonDetails objectForKey:@"buttonValue"] intValue];
+        //NSInteger buttonValue = [[buttonDetails objectForKey:@"buttonValue"] intValue];
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:buttonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(customButtonPressed:)];
         button.tag = index;
         [barItems addObject:button];
         index++;
     }
     if (NO == self.hideCancel) {
-        UIBarButtonItem *cancelBtn = [self createButtonWithType:UIBarButtonSystemItemCancel target:self action:@selector(actionPickerCancel:)];
-        [barItems addObject:cancelBtn];
+        [barItems addObject:self.cancelBarButtonItem];
     }
     UIBarButtonItem *flexSpace = [self createButtonWithType:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [barItems addObject:flexSpace];
     if (title){
         UIBarButtonItem *labelButton = [self createToolbarLabelWithTitle:title];
-        [barItems addObject:labelButton];    
+        [barItems addObject:labelButton];
         [barItems addObject:flexSpace];
     }
-    UIBarButtonItem *doneButton = [self createButtonWithType:UIBarButtonSystemItemDone target:self action:@selector(actionPickerDone:)];
-    [barItems addObject:doneButton];
+    [barItems addObject:self.doneBarButtonItem];
+    
     [pickerToolbar setItems:barItems animated:YES];
     return pickerToolbar;
 }
@@ -242,20 +276,20 @@ BOOL OSAtLeast(NSString* v) {
     UILabel *toolBarItemlabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 180,30)];
     [toolBarItemlabel setTextAlignment:NSTextAlignmentCenter];
     [toolBarItemlabel setTextColor: OSAtLeast(@"7.0") ? [UIColor blackColor] : [UIColor whiteColor]];
-    [toolBarItemlabel setFont:[UIFont boldSystemFontOfSize:16]];    
-    [toolBarItemlabel setBackgroundColor:[UIColor clearColor]];    
-    toolBarItemlabel.text = aTitle;    
+    [toolBarItemlabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [toolBarItemlabel setBackgroundColor:[UIColor clearColor]];
+    toolBarItemlabel.text = aTitle;
     UIBarButtonItem *buttonLabel = [[UIBarButtonItem alloc]initWithCustomView:toolBarItemlabel];
     return buttonLabel;
 }
 
 - (UIBarButtonItem *)createButtonWithType:(UIBarButtonSystemItem)type target:(id)target action:(SEL)buttonAction {
-
+    
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:target action:buttonAction];
-
+    
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
         [barButton setTintColor: [[UIApplication sharedApplication] keyWindow].tintColor];
-
+    
     return barButton;
 }
 
@@ -318,7 +352,7 @@ BOOL OSAtLeast(NSString* v) {
     // Use beginAnimations for a smoother popup animation, otherwise the UIActionSheet pops into view
     [UIView beginAnimations:nil context:nil];
     _actionSheet.bounds = CGRectMake(0, 0, self.viewSize.width, sheetHeight);
-    [UIView commitAnimations];    
+    [UIView commitAnimations];
 }
 
 - (void)presentActionSheet:(UIActionSheet *)actionSheet {
@@ -334,7 +368,7 @@ BOOL OSAtLeast(NSString* v) {
 - (void)configureAndPresentPopoverForView:(UIView *)aView {
     UIViewController *viewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
     viewController.view = aView;
-    viewController.preferredContentSize = viewController.view.frame.size;
+    viewController.contentSizeForViewInPopover = viewController.view.frame.size;
     _popOverController = [[UIPopoverController alloc] initWithContentViewController:viewController];
     [self presentPopover:_popOverController];
 }
