@@ -13,5 +13,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *daysLabel;
 
-@property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSString *categoryString;
 @end

@@ -1,4 +1,3 @@
-//
 //  EditViewController.m
 //  AnniversaryApp
 //
@@ -7,8 +6,12 @@
 //
 
 #import "EditViewController.h"
+#import "MainTableViewController.h"
 #import "ActionSheetDatePicker.h"
+#import "CategoryViewController.h"
+#import "EditCategoryTableViewCell.h"
 #import "EditDateTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface EditViewController ()
 
@@ -28,6 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    _recordArray = delegate.recordDateDicArray;
     
     // 需初始化
     if (self.selectedDate == nil) {
@@ -53,6 +59,8 @@
         self.deleteButton.hidden = YES;
     }
     
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,11 +82,20 @@
             [formatter setDateFormat:@"yyyy-MM-dd"];
             editCell.dateLabel.text = [formatter stringFromDate:self.selectedDate];
             cell = editCell;
-            
         }
         else if (indexPath.row == 1) {
-            static NSString *CellIdentifier = @"TestCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            static NSString *CellIdentifier = @"CategoryCell";
+            EditCategoryTableViewCell *editCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            if (isEmpty(self.categoryString) == NO) {
+                editCell.categoryLabel.text = self.categoryString;
+            } else {
+                self.categoryString = @"未分类";
+                self.categoryID = @"0";
+            }
+            
+            cell = editCell;
+            
         }
 
     }
@@ -101,15 +118,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        
         EditDateTableViewCell *cell = (EditDateTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        
         _actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:self.selectedDate target:self action:@selector(dateWasSelected:element:) origin:cell];
         [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
         self.actionSheetPicker.hideCancel = YES;
         [self.actionSheetPicker showActionSheetPicker];
-
-
     } else {
         
     }
@@ -134,48 +147,52 @@
     return YES;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"showCategory"]) {
+        CategoryViewController *categoryViewController = (CategoryViewController *)[segue destinationViewController];
+        categoryViewController.editViewController = self;
+    }
 }
-*/
+
+
+#pragma mark action
 
 - (IBAction)saveDate:(id)sender {
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath = [paths objectAtIndex:0];
-    NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
+    
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
 
     
     if (self.isUpdate == NO) {
-        if (self.dateArray == nil) {
-            self.dateArray = [[NSMutableArray alloc] init];
-        }
-        
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:self.editTitleTextField.text forKey:@"Title"];
-        [dict setObject:[formatter stringFromDate:self.selectedDate] forKey:@"Date"];
-        
-        [self.dateArray addObject:dict];
+        [dict setObject:self.editTitleTextField.text forKey:@"title"];
+        [dict setObject:[formatter stringFromDate:self.selectedDate] forKey:@"date"];
+        [dict setObject:self.categoryString forKey:@"category"];
+        [dict setObject:self.categoryID forKey:@"categoryID"];
+        [_recordArray addObject:dict];
         
 
     } else {
-        NSDictionary *dict = [self.dateArray objectAtIndex:self.updateIndex];
-        [dict setValue:self.editTitleTextField.text forKey:@"Title"];
-        [dict setValue:[formatter stringFromDate:self.selectedDate] forKey:@"Date"];
+        NSDictionary *dict = [_recordArray objectAtIndex:self.updateIndex];
+        [dict setValue:self.editTitleTextField.text forKey:@"title"];
+        [dict setValue:[formatter stringFromDate:self.selectedDate] forKey:@"date"];
+        [dict setValue:self.categoryString forKey:@"category"];
+        [dict setValue:self.categoryID forKey:@"categoryID"];
     }
     
-    [self.dateArray writeToFile:filename atomically:YES];
-
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate saveRecordData];
+    
+    // 这里对主界面进行reload，主界面就不会有延迟反应
+    [self.mainViewController.tableView reloadData];
     // 返回主界面
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -189,15 +206,26 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.destructiveButtonIndex) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-        NSString *plistPath = [paths objectAtIndex:0];
-        NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
+
+        [_recordArray removeObjectAtIndex:self.updateIndex];
         
-        [self.dateArray removeObjectAtIndex:self.updateIndex];
-        [self.dateArray writeToFile:filename atomically:YES];
+        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        [delegate saveRecordData];
         
+        [self.mainViewController.tableView reloadData];
         // 返回主界面
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
+
+// 参考 http://stackoverflow.com/questions/899209/how-do-i-test-if-a-string-is-empty-in-objective-c
+static inline BOOL isEmpty(id thing) {
+    return thing == nil
+    || [thing isKindOfClass:[NSNull class]]
+    || ([thing respondsToSelector:@selector(length)]
+        && [(NSData *)thing length] == 0)
+    || ([thing respondsToSelector:@selector(count)]
+        && [(NSArray *)thing count] == 0);
+}
+
 @end

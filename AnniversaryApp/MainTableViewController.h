@@ -10,7 +10,7 @@
 
 @interface MainTableViewController : UITableViewController<UIGestureRecognizerDelegate>
 {
-    NSMutableArray *dateArray;
-    NSOperationQueue *operationQueue;
+    NSMutableArray * _recordArray;
+    NSOperationQueue * _operationQueue;
 }
 @end

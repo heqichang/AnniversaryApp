@@ -28,6 +28,10 @@
 		83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */; };
 		83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A21964EBC500D7A3D7 /* EditViewController.m */; };
 		83AF12A91964EC0B00D7A3D7 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */; };
+		83F07123197386A30060B654 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F07122197386A30060B654 /* CategoryViewController.m */; };
+		83F0712619756CC30060B654 /* EditCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0712519756CC30060B654 /* EditCategoryTableViewCell.m */; };
+		83F071291976AEC00060B654 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F071281976AEC00060B654 /* CategoryTableViewCell.m */; };
+		83F0712C197779C10060B654 /* CategoryNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0712B197779C10060B654 /* CategoryNewTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,14 @@
 		83AF12A21964EBC500D7A3D7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		83AF12A71964EC0B00D7A3D7 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
 		83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
+		83F07121197386A30060B654 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
+		83F07122197386A30060B654 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
+		83F0712419756CC30060B654 /* EditCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoryTableViewCell.h; sourceTree = "<group>"; };
+		83F0712519756CC30060B654 /* EditCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoryTableViewCell.m; sourceTree = "<group>"; };
+		83F071271976AEC00060B654 /* CategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewCell.h; sourceTree = "<group>"; };
+		83F071281976AEC00060B654 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
+		83F0712A197779C10060B654 /* CategoryNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryNewTableViewCell.h; sourceTree = "<group>"; };
+		83F0712B197779C10060B654 /* CategoryNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryNewTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +129,12 @@
 				8321E8441966B1F80011C81A /* EditDateTableViewCell.m */,
 				8321E84819679F390011C81A /* MainTableViewCell.h */,
 				8321E84919679F390011C81A /* MainTableViewCell.m */,
+				83F0712419756CC30060B654 /* EditCategoryTableViewCell.h */,
+				83F0712519756CC30060B654 /* EditCategoryTableViewCell.m */,
+				83F071271976AEC00060B654 /* CategoryTableViewCell.h */,
+				83F071281976AEC00060B654 /* CategoryTableViewCell.m */,
+				83F0712A197779C10060B654 /* CategoryNewTableViewCell.h */,
+				83F0712B197779C10060B654 /* CategoryNewTableViewCell.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -205,6 +223,8 @@
 				83AF12A21964EBC500D7A3D7 /* EditViewController.m */,
 				83AF12A71964EC0B00D7A3D7 /* DatePickerViewController.h */,
 				83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */,
+				83F07121197386A30060B654 /* CategoryViewController.h */,
+				83F07122197386A30060B654 /* CategoryViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -313,8 +333,12 @@
 				8321E84A19679F390011C81A /* MainTableViewCell.m in Sources */,
 				8334118F1963ECEB009874F7 /* main.m in Sources */,
 				8321E8401966A1140011C81A /* AbstractActionSheetPicker.m in Sources */,
+				83F07123197386A30060B654 /* CategoryViewController.m in Sources */,
+				83F071291976AEC00060B654 /* CategoryTableViewCell.m in Sources */,
 				83AF12A91964EC0B00D7A3D7 /* DatePickerViewController.m in Sources */,
 				83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */,
+				83F0712C197779C10060B654 /* CategoryNewTableViewCell.m in Sources */,
+				83F0712619756CC30060B654 /* EditCategoryTableViewCell.m in Sources */,
 				8321E8411966A1140011C81A /* ActionSheetDatePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
