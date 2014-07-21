@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FPPopoverController.h"
+@class FPPopoverController;
 
-@interface MainTableViewController : UITableViewController<UIGestureRecognizerDelegate>
+@interface MainTableViewController : UITableViewController<UIGestureRecognizerDelegate, FPPopoverControllerDelegate>
 {
     NSMutableArray * _recordArray;
-    NSOperationQueue * _operationQueue;
+    FPPopoverController * _popover;
 }
+
+-(void)selectedTableRow:(NSUInteger)rowNum;
 @end

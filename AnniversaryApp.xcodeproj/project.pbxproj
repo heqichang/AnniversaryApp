@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8320FDAE197CB585007FB984 /* CategoryMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320FDAD197CB585007FB984 /* CategoryMenuTableViewController.m */; };
 		8321E8401966A1140011C81A /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E83D1966A1140011C81A /* AbstractActionSheetPicker.m */; };
 		8321E8411966A1140011C81A /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E83F1966A1140011C81A /* ActionSheetDatePicker.m */; };
 		8321E8451966B1F80011C81A /* EditDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321E8441966B1F80011C81A /* EditDateTableViewCell.m */; };
@@ -27,11 +28,13 @@
 		833411AE1963ECEB009874F7 /* AnniversaryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 833411AD1963ECEB009874F7 /* AnniversaryAppTests.m */; };
 		83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */; };
 		83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A21964EBC500D7A3D7 /* EditViewController.m */; };
-		83AF12A91964EC0B00D7A3D7 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */; };
 		83F07123197386A30060B654 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F07122197386A30060B654 /* CategoryViewController.m */; };
 		83F0712619756CC30060B654 /* EditCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0712519756CC30060B654 /* EditCategoryTableViewCell.m */; };
 		83F071291976AEC00060B654 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F071281976AEC00060B654 /* CategoryTableViewCell.m */; };
 		83F0712C197779C10060B654 /* CategoryNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0712B197779C10060B654 /* CategoryNewTableViewCell.m */; };
+		83F0713519795D660060B654 /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0713019795D660060B654 /* FPPopoverController.m */; };
+		83F0713619795D660060B654 /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0713219795D660060B654 /* FPPopoverView.m */; };
+		83F0713719795D660060B654 /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F0713419795D660060B654 /* FPTouchView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8320FDAC197CB585007FB984 /* CategoryMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryMenuTableViewController.h; sourceTree = "<group>"; };
+		8320FDAD197CB585007FB984 /* CategoryMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryMenuTableViewController.m; sourceTree = "<group>"; };
+		8320FDAF197CCDCA007FB984 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8321E83C1966A1140011C81A /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
 		8321E83D1966A1140011C81A /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
 		8321E83E1966A1140011C81A /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
@@ -75,8 +81,6 @@
 		83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		83AF12A11964EBC500D7A3D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		83AF12A21964EBC500D7A3D7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
-		83AF12A71964EC0B00D7A3D7 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
-		83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		83F07121197386A30060B654 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		83F07122197386A30060B654 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		83F0712419756CC30060B654 /* EditCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoryTableViewCell.h; sourceTree = "<group>"; };
@@ -85,6 +89,13 @@
 		83F071281976AEC00060B654 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
 		83F0712A197779C10060B654 /* CategoryNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryNewTableViewCell.h; sourceTree = "<group>"; };
 		83F0712B197779C10060B654 /* CategoryNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryNewTableViewCell.m; sourceTree = "<group>"; };
+		83F0712E19795D660060B654 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
+		83F0712F19795D660060B654 /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
+		83F0713019795D660060B654 /* FPPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverController.m; sourceTree = "<group>"; };
+		83F0713119795D660060B654 /* FPPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverView.h; sourceTree = "<group>"; };
+		83F0713219795D660060B654 /* FPPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverView.m; sourceTree = "<group>"; };
+		83F0713319795D660060B654 /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
+		83F0713419795D660060B654 /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +172,7 @@
 		833411811963ECEB009874F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8320FDAF197CCDCA007FB984 /* QuartzCore.framework */,
 				833411821963ECEB009874F7 /* Foundation.framework */,
 				833411841963ECEB009874F7 /* CoreGraphics.framework */,
 				833411861963ECEB009874F7 /* UIKit.framework */,
@@ -172,6 +184,7 @@
 		833411881963ECEB009874F7 /* AnniversaryApp */ = {
 			isa = PBXGroup;
 			children = (
+				83F0712D19795D2B0060B654 /* FPPopover */,
 				8321E83B1966A0D70011C81A /* Pickers */,
 				83AF129D1964EB5700D7A3D7 /* ViewController */,
 				833411911963ECEB009874F7 /* AppDelegate.h */,
@@ -221,12 +234,26 @@
 				83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */,
 				83AF12A11964EBC500D7A3D7 /* EditViewController.h */,
 				83AF12A21964EBC500D7A3D7 /* EditViewController.m */,
-				83AF12A71964EC0B00D7A3D7 /* DatePickerViewController.h */,
-				83AF12A81964EC0B00D7A3D7 /* DatePickerViewController.m */,
 				83F07121197386A30060B654 /* CategoryViewController.h */,
 				83F07122197386A30060B654 /* CategoryViewController.m */,
+				8320FDAC197CB585007FB984 /* CategoryMenuTableViewController.h */,
+				8320FDAD197CB585007FB984 /* CategoryMenuTableViewController.m */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		83F0712D19795D2B0060B654 /* FPPopover */ = {
+			isa = PBXGroup;
+			children = (
+				83F0712E19795D660060B654 /* ARCMacros.h */,
+				83F0712F19795D660060B654 /* FPPopoverController.h */,
+				83F0713019795D660060B654 /* FPPopoverController.m */,
+				83F0713119795D660060B654 /* FPPopoverView.h */,
+				83F0713219795D660060B654 /* FPPopoverView.m */,
+				83F0713319795D660060B654 /* FPTouchView.h */,
+				83F0713419795D660060B654 /* FPTouchView.m */,
+			);
+			name = FPPopover;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,14 +356,17 @@
 			files = (
 				83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */,
 				8321E8451966B1F80011C81A /* EditDateTableViewCell.m in Sources */,
+				8320FDAE197CB585007FB984 /* CategoryMenuTableViewController.m in Sources */,
 				833411931963ECEB009874F7 /* AppDelegate.m in Sources */,
 				8321E84A19679F390011C81A /* MainTableViewCell.m in Sources */,
 				8334118F1963ECEB009874F7 /* main.m in Sources */,
 				8321E8401966A1140011C81A /* AbstractActionSheetPicker.m in Sources */,
 				83F07123197386A30060B654 /* CategoryViewController.m in Sources */,
 				83F071291976AEC00060B654 /* CategoryTableViewCell.m in Sources */,
-				83AF12A91964EC0B00D7A3D7 /* DatePickerViewController.m in Sources */,
+				83F0713619795D660060B654 /* FPPopoverView.m in Sources */,
+				83F0713519795D660060B654 /* FPPopoverController.m in Sources */,
 				83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */,
+				83F0713719795D660060B654 /* FPTouchView.m in Sources */,
 				83F0712C197779C10060B654 /* CategoryNewTableViewCell.m in Sources */,
 				83F0712619756CC30060B654 /* EditCategoryTableViewCell.m in Sources */,
 				8321E8411966A1140011C81A /* ActionSheetDatePicker.m in Sources */,

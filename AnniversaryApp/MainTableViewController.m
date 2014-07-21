@@ -12,6 +12,9 @@
 #import "EditViewController.h"
 #import "AppDelegate.h"
 
+#import "CategoryMenuTableViewController.h"
+#import "FPPopoverController.h"
+
 @interface MainTableViewController ()
 
 @end
@@ -48,8 +51,25 @@
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     _recordArray = delegate.recordDateDicArray;
     
-    _operationQueue = [[NSOperationQueue alloc] init];
-    _operationQueue.maxConcurrentOperationCount = 1;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, self.navigationController.navigationBar.bounds.size.height)];
+    view.backgroundColor = [UIColor clearColor];
+//    UILabel *label1 = [[UILabel alloc] initWithFrame:view.frame];
+//    label1.text = @"全部";
+//    label1.textAlignment = NSTextAlignmentCenter;
+//    
+//    
+//    [view addSubview:label1];
+    
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button1.frame = view.frame;
+    [button1 setTitle:@"全部" forState:UIControlStateNormal];
+    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(clickTitle:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:button1];
+    
+    //[label1 sizeToFit];
+    self.navigationItem.titleView = view;
 }
 
 - (void)didReceiveMemoryWarning
@@ -230,6 +250,33 @@
 }
 
 #pragma mark user defiended
+
+- (void)clickTitle:(id)sender
+{
+    CategoryMenuTableViewController *menu = [[CategoryMenuTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    menu.delegate = self;
+    _popover = [[FPPopoverController alloc] initWithViewController:menu];
+    _popover.delegate = self;
+    _popover.title = nil;
+    _popover.tint = FPPopoverWhiteTint;
+    //_popover.contentSize = CGSizeMake(300, 300);
+    _popover.arrowDirection = FPPopoverArrowDirectionAny;
+    _popover.border = NO;
+    [_popover presentPopoverFromView:sender];
+    
+}
+
+-(void)selectedTableRow:(NSUInteger)rowNum
+{
+    NSLog(@"SELECTED ROW %d",rowNum);
+    [_popover dismissPopoverAnimated:YES];
+}
+
+- (void)presentedNewPopoverController:(FPPopoverController *)newPopoverController
+          shouldDismissVisiblePopover:(FPPopoverController*)visiblePopoverController
+{
+    [visiblePopoverController dismissPopoverAnimated:YES];
+}
 
 
 
