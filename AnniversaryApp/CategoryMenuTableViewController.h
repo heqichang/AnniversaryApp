@@ -11,10 +11,7 @@
 @class MainTableViewController;
 
 @interface CategoryMenuTableViewController : UITableViewController
-{
-    NSMutableDictionary * _categoryDict;
-    NSArray * _dictKeys;
-}
+
 
 @property(nonatomic,assign) MainTableViewController *delegate;
 @end

@@ -14,7 +14,13 @@
 
 #import "EditViewController.h"
 
+#import "RecordCategory.h"
+#import "RecordCategoryDAO.h"
+
 @interface CategoryViewController ()
+{
+    AppDelegate * _delegate;
+}
 
 @end
 
@@ -36,7 +42,7 @@
     [super viewDidLoad];
     
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    _categoryDictArray = delegate.categoryArray;
+    _delegate = delegate;
     
     self.tableView.layer.borderWidth = 1.0f;
     self.tableView.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -59,26 +65,27 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // 每个cell的高度是40
-    CGFloat height = _categoryDictArray.count * 40;
+    CGFloat height = [_delegate.categoryArray count] * 40;
     self.tableViewHeightConstraint.constant = height + 40;
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _categoryDictArray.count + 1;
+    return [_delegate.categoryArray count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.row < _categoryDictArray.count) {
+    if (indexPath.row < [_delegate.categoryArray count]) {
         NSString *cellIdentifier = @"CategoryCell";
         CategoryTableViewCell *categoryCell = (CategoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         
-        NSDictionary *data = [_categoryDictArray objectAtIndex:indexPath.row];
-        categoryCell.categoryLabel.text = [data objectForKey:@"name"];
-        categoryCell.categoryID = [data objectForKey:@"id"];
+        RecordCategory *category = _delegate.categoryArray[indexPath.row];
+        
+        categoryCell.categoryLabel.text = category.name;
+        
         
         cell = categoryCell;
     } else {
@@ -105,11 +112,14 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         NSLog(@"%d", indexPath.row);
-        [_categoryDictArray removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        RecordCategoryDAO *categoryDAO = [[RecordCategoryDAO alloc] init];
+        BOOL deleted = [categoryDAO deleteRecord:_delegate.categoryArray[indexPath.row]];
         
-        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        [delegate saveCategory];
+        if (deleted) {
+            [_delegate.categoryArray removeObjectAtIndex:indexPath.row];
+        }
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -135,10 +145,8 @@
 
 - (IBAction)saveCategory:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    if (indexPath.row < _categoryDictArray.count) {
-        NSDictionary *data = [_categoryDictArray objectAtIndex:indexPath.row];
-        self.editViewController.categoryString = [data objectForKey:@"name"];
-        self.editViewController.categoryID = [data objectForKey:@"id"];
+    if (indexPath.row < [_delegate.categoryArray count]) {
+        [self.editViewController updateCategory:_delegate.categoryArray[indexPath.row]];
         [self.editViewController.editTableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
     }

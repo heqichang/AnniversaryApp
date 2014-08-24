@@ -26,6 +26,13 @@
 		833411A41963ECEB009874F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833411861963ECEB009874F7 /* UIKit.framework */; };
 		833411AC1963ECEB009874F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 833411AA1963ECEB009874F7 /* InfoPlist.strings */; };
 		833411AE1963ECEB009874F7 /* AnniversaryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 833411AD1963ECEB009874F7 /* AnniversaryAppTests.m */; };
+		83528ACA19A63DD40048AA2D /* CoreDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 83528AC919A63DD40048AA2D /* CoreDAO.m */; };
+		83528ACD19A6402F0048AA2D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83528ACB19A6402F0048AA2D /* Model.xcdatamodeld */; };
+		836EE8FC19A1A6F900BB2FD1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 836EE8FB19A1A6F900BB2FD1 /* CoreData.framework */; };
+		8387CE7419A7859700568AC6 /* RecordCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE7319A7859700568AC6 /* RecordCategory.m */; };
+		8387CE7719A7859800568AC6 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE7619A7859800568AC6 /* Record.m */; };
+		8387CE7A19A7889D00568AC6 /* RecordDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE7919A7889D00568AC6 /* RecordDAO.m */; };
+		8387CE7D19A8DA6A00568AC6 /* RecordCategoryDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE7C19A8DA6A00568AC6 /* RecordCategoryDAO.m */; };
 		83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */; };
 		83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF12A21964EBC500D7A3D7 /* EditViewController.m */; };
 		83F07123197386A30060B654 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F07122197386A30060B654 /* CategoryViewController.m */; };
@@ -77,6 +84,18 @@
 		833411A91963ECEB009874F7 /* AnniversaryAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AnniversaryAppTests-Info.plist"; sourceTree = "<group>"; };
 		833411AB1963ECEB009874F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		833411AD1963ECEB009874F7 /* AnniversaryAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnniversaryAppTests.m; sourceTree = "<group>"; };
+		83528AC819A63DD40048AA2D /* CoreDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDAO.h; sourceTree = "<group>"; };
+		83528AC919A63DD40048AA2D /* CoreDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDAO.m; sourceTree = "<group>"; };
+		83528ACC19A6402F0048AA2D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		836EE8FB19A1A6F900BB2FD1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8387CE7219A7859700568AC6 /* RecordCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordCategory.h; sourceTree = "<group>"; };
+		8387CE7319A7859700568AC6 /* RecordCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCategory.m; sourceTree = "<group>"; };
+		8387CE7519A7859800568AC6 /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
+		8387CE7619A7859800568AC6 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		8387CE7819A7889D00568AC6 /* RecordDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordDAO.h; sourceTree = "<group>"; };
+		8387CE7919A7889D00568AC6 /* RecordDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordDAO.m; sourceTree = "<group>"; };
+		8387CE7B19A8DA6A00568AC6 /* RecordCategoryDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordCategoryDAO.h; sourceTree = "<group>"; };
+		8387CE7C19A8DA6A00568AC6 /* RecordCategoryDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCategoryDAO.m; sourceTree = "<group>"; };
 		83AF129E1964EB9400D7A3D7 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		83AF129F1964EB9400D7A3D7 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		83AF12A11964EBC500D7A3D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -103,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				836EE8FC19A1A6F900BB2FD1 /* CoreData.framework in Frameworks */,
 				833411851963ECEB009874F7 /* CoreGraphics.framework in Frameworks */,
 				833411871963ECEB009874F7 /* UIKit.framework in Frameworks */,
 				833411831963ECEB009874F7 /* Foundation.framework in Frameworks */,
@@ -172,6 +192,7 @@
 		833411811963ECEB009874F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				836EE8FB19A1A6F900BB2FD1 /* CoreData.framework */,
 				8320FDAF197CCDCA007FB984 /* QuartzCore.framework */,
 				833411821963ECEB009874F7 /* Foundation.framework */,
 				833411841963ECEB009874F7 /* CoreGraphics.framework */,
@@ -184,6 +205,7 @@
 		833411881963ECEB009874F7 /* AnniversaryApp */ = {
 			isa = PBXGroup;
 			children = (
+				836EE8FA19A1A6C800BB2FD1 /* Model */,
 				83F0712D19795D2B0060B654 /* FPPopover */,
 				8321E83B1966A0D70011C81A /* Pickers */,
 				83AF129D1964EB5700D7A3D7 /* ViewController */,
@@ -224,6 +246,24 @@
 				833411AA1963ECEB009874F7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		836EE8FA19A1A6C800BB2FD1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				83528AC819A63DD40048AA2D /* CoreDAO.h */,
+				83528AC919A63DD40048AA2D /* CoreDAO.m */,
+				83528ACB19A6402F0048AA2D /* Model.xcdatamodeld */,
+				8387CE7519A7859800568AC6 /* Record.h */,
+				8387CE7619A7859800568AC6 /* Record.m */,
+				8387CE7219A7859700568AC6 /* RecordCategory.h */,
+				8387CE7319A7859700568AC6 /* RecordCategory.m */,
+				8387CE7819A7889D00568AC6 /* RecordDAO.h */,
+				8387CE7919A7889D00568AC6 /* RecordDAO.m */,
+				8387CE7B19A8DA6A00568AC6 /* RecordCategoryDAO.h */,
+				8387CE7C19A8DA6A00568AC6 /* RecordCategoryDAO.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		83AF129D1964EB5700D7A3D7 /* ViewController */ = {
@@ -354,13 +394,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83528ACA19A63DD40048AA2D /* CoreDAO.m in Sources */,
 				83AF12A31964EBC500D7A3D7 /* EditViewController.m in Sources */,
 				8321E8451966B1F80011C81A /* EditDateTableViewCell.m in Sources */,
+				8387CE7419A7859700568AC6 /* RecordCategory.m in Sources */,
 				8320FDAE197CB585007FB984 /* CategoryMenuTableViewController.m in Sources */,
 				833411931963ECEB009874F7 /* AppDelegate.m in Sources */,
+				83528ACD19A6402F0048AA2D /* Model.xcdatamodeld in Sources */,
 				8321E84A19679F390011C81A /* MainTableViewCell.m in Sources */,
+				8387CE7A19A7889D00568AC6 /* RecordDAO.m in Sources */,
 				8334118F1963ECEB009874F7 /* main.m in Sources */,
 				8321E8401966A1140011C81A /* AbstractActionSheetPicker.m in Sources */,
+				8387CE7719A7859800568AC6 /* Record.m in Sources */,
 				83F07123197386A30060B654 /* CategoryViewController.m in Sources */,
 				83F071291976AEC00060B654 /* CategoryTableViewCell.m in Sources */,
 				83F0713619795D660060B654 /* FPPopoverView.m in Sources */,
@@ -368,6 +413,7 @@
 				83AF12A01964EB9400D7A3D7 /* MainTableViewController.m in Sources */,
 				83F0713719795D660060B654 /* FPTouchView.m in Sources */,
 				83F0712C197779C10060B654 /* CategoryNewTableViewCell.m in Sources */,
+				8387CE7D19A8DA6A00568AC6 /* RecordCategoryDAO.m in Sources */,
 				83F0712619756CC30060B654 /* EditCategoryTableViewCell.m in Sources */,
 				8321E8411966A1140011C81A /* ActionSheetDatePicker.m in Sources */,
 			);
@@ -586,6 +632,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		83528ACB19A6402F0048AA2D /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83528ACC19A6402F0048AA2D /* Model.xcdatamodel */,
+			);
+			currentVersion = 83528ACC19A6402F0048AA2D /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 833411771963ECEB009874F7 /* Project object */;
 }

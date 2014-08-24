@@ -9,6 +9,8 @@
 #import "CategoryNewTableViewCell.h"
 #import "AppDelegate.h"
 
+#import "RecordCategoryDAO.h"
+
 @implementation CategoryNewTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -40,27 +42,9 @@
         [self.categoryTextField resignFirstResponder];
         return NO;
     } else {
+        RecordCategoryDAO *categoryDAO = [[RecordCategoryDAO alloc] init];
         AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        NSMutableArray *recordCategory = delegate.categoryArray;
-        
-        NSMutableDictionary *categoryDict = delegate.categoryDict;
-        
-        // 获取最大id
-        NSInteger maxId = 0;
-        for (NSString *key in categoryDict) {
-            NSInteger temp = [key intValue];
-            if (temp > maxId) {
-                maxId = temp;
-            }
-        }
-        
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:self.categoryTextField.text forKey:@"name"];
-        [dic setObject:[NSString stringWithFormat:@"%d", maxId + 1] forKey:@"id"];
-        [recordCategory addObject:dic];
-        [categoryDict setObject:self.categoryTextField.text forKey:[NSString stringWithFormat:@"%d", maxId + 1]];
-        
-        [delegate saveCategory];
+        [delegate.categoryArray addObject:[categoryDAO addRecordCategoryName:self.categoryTextField.text]];
         
         [self.parentTableView reloadData];
         [self.categoryTextField resignFirstResponder];

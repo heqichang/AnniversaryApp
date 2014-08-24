@@ -10,8 +10,12 @@
 #import "AppDelegate.h"
 #import "MainTableViewController.h"
 
-@interface CategoryMenuTableViewController ()
+#import "RecordCategory.h"
 
+@interface CategoryMenuTableViewController ()
+{
+    AppDelegate * _appDelegate;
+}
 @end
 
 @implementation CategoryMenuTableViewController
@@ -30,8 +34,7 @@
     [super viewDidLoad];
     
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    _categoryDict = delegate.categoryDict;
-    _dictKeys = [_categoryDict allKeys];
+    _appDelegate = delegate;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -59,7 +62,7 @@
 {
 
     // Return the number of rows in the section.
-    return _categoryDict.count;
+    return [_appDelegate.categoryArray count] + 1;
 }
 
 
@@ -73,22 +76,29 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    id key = [_dictKeys objectAtIndex:indexPath.row];
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"全部";
+    } else {
+        RecordCategory *category = _appDelegate.categoryArray[indexPath.row - 1];
+        cell.textLabel.text = category.name;
+    }
     
-    cell.textLabel.text = [_categoryDict objectForKey:key];
+    
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
-    if([self.delegate respondsToSelector:@selector(selectedTableRow:)])
+    if([self.delegate respondsToSelector:@selector(selectedCategory:)])
     {
-        [self.delegate selectedTableRow:indexPath.row];
+        RecordCategory *category = nil;
+        if (indexPath.row != 0) {
+            category = _appDelegate.categoryArray[indexPath.row -1];
+        }
+        
+        [self.delegate selectedCategory:category];
     }
-
 }
 
 /*

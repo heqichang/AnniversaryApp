@@ -7,13 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "RecordDAO.h"
+#import "RecordCategoryDAO.h"
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.operationQueue = [[NSOperationQueue alloc] init];
-    self.operationQueue.maxConcurrentOperationCount = 1;
+//    self.operationQueue = [[NSOperationQueue alloc] init];
+//    self.operationQueue.maxConcurrentOperationCount = 1;
     
     // 加载类别
     [self loadCategory];
@@ -55,89 +58,55 @@
 
 - (void)loadCategory
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath = [paths objectAtIndex:0];
-    NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedCategory.plist"];
-    
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    
-    BOOL isExist = [fileManager fileExistsAtPath:filename];
+    RecordCategoryDAO *categoryDAO = [[RecordCategoryDAO alloc] init];
+    _categoryArray = [categoryDAO findAll];
     
     // 加入默认信息
-    if (isExist == NO) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@"未分类", @"name", @"0", @"id", nil];
-        NSDictionary *dic1 = [NSDictionary dictionaryWithObjectsAndKeys:@"纪念日", @"name", @"1", @"id", nil];
-        NSDictionary *dic2 = [NSDictionary dictionaryWithObjectsAndKeys:@"生日", @"name", @"2", @"id", nil];
-        [array addObject:dic];
-        [array addObject:dic1];
-        [array addObject:dic2];
-        
-        [array writeToFile:filename atomically:YES];
+    if ([_categoryArray count] == 0) {
+        [_categoryArray addObject:[categoryDAO addRecordCategoryName:@"纪念日"]];
+        [_categoryArray addObject:[categoryDAO addRecordCategoryName:@"生日"]];
     }
     
-    self.categoryArray = [[NSMutableArray alloc] initWithContentsOfFile:filename];
-    assert(self.categoryArray != nil);
-    
-    self.categoryDict = [[NSMutableDictionary alloc] initWithCapacity:10];
-    for (NSDictionary *dict in self.categoryArray) {
-        [self.categoryDict setObject:[dict objectForKey:@"name"] forKey:[dict objectForKey:@"id"]];
-    }
 }
 
-- (void)saveCategory
-{
-    [self.operationQueue addOperationWithBlock:^{
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-        NSString *plistPath = [paths objectAtIndex:0];
-        NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedCategory.plist"];
-        
-        [self.categoryArray writeToFile:filename atomically:YES];
-        
-    }];
-}
+//- (void)saveCategory
+//{
+//    [self.operationQueue addOperationWithBlock:^{
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+//        NSString *plistPath = [paths objectAtIndex:0];
+//        NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedCategory.plist"];
+//        
+//        [self.categoryArray writeToFile:filename atomically:YES];
+//        
+//    }];
+//}
 
 
 - (void)loadRecordDate
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath = [paths objectAtIndex:0];
-    NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
+    RecordDAO *recordDAO = [[RecordDAO alloc] init];
+    _recordArray = [recordDAO findAll];
     
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    
-    BOOL isExist = [fileManager fileExistsAtPath:filename];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     // 加入默认信息
-    if (isExist == NO) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        
-        NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setObject:@"纪念日" forKey:@"title"];
-        [dic1 setObject:@"2014-07-15" forKey:@"date"];
-        [dic1 setObject:@"纪念日" forKey:@"category"];
-        [dic1 setObject:@"1" forKey:@"categoryID"];
-        
-        [array addObject:dic1];
-        [array writeToFile:filename atomically:YES];
+    if ([_recordArray count] == 0) {
+        [_recordArray addObject:[recordDAO addRecordTitle:@"纪念日" date:[dateFormatter dateFromString:@"2014-07-01"]  category:_categoryArray[0]]];
     }
     
-    self.recordDateDicArray = [[NSMutableArray alloc] initWithContentsOfFile:filename];
-    
-    assert(self.recordDateDicArray != nil);
 }
 
-- (void)saveRecordData
-{
-    [self.operationQueue addOperationWithBlock:^{
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-        NSString *plistPath = [paths objectAtIndex:0];
-        NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
-        
-        [self.recordDateDicArray writeToFile:filename atomically:YES];
-        
-    }];
-}
+//- (void)saveRecordData
+//{
+//    [self.operationQueue addOperationWithBlock:^{
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+//        NSString *plistPath = [paths objectAtIndex:0];
+//        NSString *filename = [plistPath stringByAppendingPathComponent:@"SavedAnniversary.plist"];
+//        
+//        [self.recordDateDicArray writeToFile:filename atomically:YES];
+//        
+//    }];
+//}
 
 @end

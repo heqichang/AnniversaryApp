@@ -184,7 +184,6 @@
         <!--Category View Controller-->
         <scene sceneID="tQL-9a-XGU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0nb-Pe-9aX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="mT7-T4-Lpg" customClass="CategoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5iU-5A-uNQ"/>
@@ -295,6 +294,7 @@
                         <outlet property="tableViewHeightConstraint" destination="Xn3-we-P5I" id="f7e-y1-Niy"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0nb-Pe-9aX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1811" y="111"/>
         </scene>

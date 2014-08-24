@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "FPPopoverController.h"
 @class FPPopoverController;
+@class RecordCategory;
 
 @interface MainTableViewController : UITableViewController<UIGestureRecognizerDelegate, FPPopoverControllerDelegate>
-{
-    NSMutableArray * _recordArray;
-    FPPopoverController * _popover;
-}
 
--(void)selectedTableRow:(NSUInteger)rowNum;
+
+-(void)selectedCategory:(RecordCategory *)category;
 @end

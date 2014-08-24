@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Record" representedClassName="Record" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RecordCategory" inverseName="record" inverseEntity="RecordCategory" syncable="YES"/>
+    </entity>
+    <entity name="RecordCategory" representedClassName="RecordCategory" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Record" inverseName="category" inverseEntity="Record" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="RecordCategory" positionX="-18" positionY="45" width="128" height="73"/>
+        <element name="Record" positionX="-45" positionY="0" width="128" height="88"/>
+    </elements>
+</model>

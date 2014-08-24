@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *daysLabel;
 
 @property (strong, nonatomic) NSString *categoryString;
+
+@property (strong, nonatomic) NSNumber *recordIndex;
 @end

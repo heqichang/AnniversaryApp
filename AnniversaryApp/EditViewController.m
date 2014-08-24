@@ -13,8 +13,15 @@
 #import "EditDateTableViewCell.h"
 #import "AppDelegate.h"
 
-@interface EditViewController ()
+#import "Record.h"
+#import "RecordDAO.h"
+#import "RecordCategory.h"
 
+@interface EditViewController ()
+{
+    NSDate * _updatedDate;
+    AppDelegate * _delegate;
+}
 @end
 
 @implementation EditViewController
@@ -33,16 +40,7 @@
     [super viewDidLoad];
     
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    _recordArray = delegate.recordDateDicArray;
-    
-    // 需初始化
-    if (self.selectedDate == nil) {
-        self.selectedDate = [NSDate date];
-    }
-    
-    if (self.editTitle != nil) {
-        self.editTitleTextField.text = self.editTitle;
-    }
+    _delegate = delegate;
     
     // 为tableview添加border
     self.editTableView.layer.borderWidth = 1.0f;
@@ -55,12 +53,14 @@
         [self.editTableView setSeparatorInset:UIEdgeInsetsZero];
     }
     
-    if (!self.isUpdate) {
+    // 需初始化
+    // 如果是更新数据的话，将显示删除按钮
+    if (_record) {
+        _editTitleTextField.text = _record.title;
+        _recordCategory = _record.category;
+    } else {
         self.deleteButton.hidden = YES;
     }
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,26 +80,30 @@
             
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd"];
-            editCell.dateLabel.text = [formatter stringFromDate:self.selectedDate];
+            
+            _updatedDate = [NSDate date];
+            
+            if (_record) {
+                _updatedDate = _record.date;
+            }
+            
+            editCell.dateLabel.text = [formatter stringFromDate:_updatedDate];
             cell = editCell;
         }
         else if (indexPath.row == 1) {
             static NSString *CellIdentifier = @"CategoryCell";
             EditCategoryTableViewCell *editCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             
-            if (isEmpty(self.categoryString) == NO) {
-                editCell.categoryLabel.text = self.categoryString;
+            if (isEmpty(_recordCategory.name)) {
+                editCell.categoryLabel.text = @"未分类";
             } else {
-                self.categoryString = @"未分类";
-                self.categoryID = @"0";
+                editCell.categoryLabel.text = _recordCategory.name;
             }
             
             cell = editCell;
             
         }
-
     }
-    
     return cell;
 }
 
@@ -119,7 +123,13 @@
     
     if (indexPath.row == 0) {
         EditDateTableViewCell *cell = (EditDateTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        _actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:self.selectedDate target:self action:@selector(dateWasSelected:element:) origin:cell];
+        NSDate *date = [NSDate date];
+        
+        if (_record) {
+            date = _record.date;
+        }
+        
+        _actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:date target:self action:@selector(dateWasSelected:element:) origin:cell];
         [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
         self.actionSheetPicker.hideCancel = YES;
         [self.actionSheetPicker showActionSheetPicker];
@@ -128,25 +138,22 @@
     }
 }
 
-- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element {
-    self.selectedDate = selectedDate;
+- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
+{
+    _updatedDate = selectedDate;
     
-    EditDateTableViewCell *cell = (EditDateTableViewCell *)element;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-
-    cell.dateLabel.text = [dateFormatter stringFromDate:self.selectedDate];
+    EditDateTableViewCell *cell = (EditDateTableViewCell *)element;
+    cell.dateLabel.text = [dateFormatter stringFromDate:_updatedDate];
 }
-
-
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.editTitleTextField resignFirstResponder];
     return YES;
 }
-
 
 #pragma mark - Navigation
 
@@ -155,8 +162,14 @@
 {
     if ([[segue identifier] isEqualToString:@"showCategory"]) {
         CategoryViewController *categoryViewController = (CategoryViewController *)[segue destinationViewController];
+        
         categoryViewController.editViewController = self;
     }
+}
+
+- (void)updateCategory:(RecordCategory *)category
+{
+    _recordCategory = category;
 }
 
 
@@ -164,32 +177,20 @@
 
 - (IBAction)saveDate:(id)sender {
     
-    
+    RecordDAO *recordDAO = [[RecordDAO alloc] init];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-
     
-    if (self.isUpdate == NO) {
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:self.editTitleTextField.text forKey:@"title"];
-        [dict setObject:[formatter stringFromDate:self.selectedDate] forKey:@"date"];
-        [dict setObject:self.categoryString forKey:@"category"];
-        [dict setObject:self.categoryID forKey:@"categoryID"];
-        [_recordArray addObject:dict];
-        
-
+    
+    if (_record) {
+        _record.title = _editTitleTextField.text;
+        _record.date = _updatedDate;
+        _record.category = _recordCategory;
+        [recordDAO updateRecord:_record];
     } else {
-        NSDictionary *dict = [_recordArray objectAtIndex:self.updateIndex];
-        [dict setValue:self.editTitleTextField.text forKey:@"title"];
-        [dict setValue:[formatter stringFromDate:self.selectedDate] forKey:@"date"];
-        [dict setValue:self.categoryString forKey:@"category"];
-        [dict setValue:self.categoryID forKey:@"categoryID"];
+        [_delegate.recordArray addObject:[recordDAO addRecordTitle:_editTitleTextField.text date:_updatedDate category:_recordCategory]];
     }
-    
-    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    [delegate saveRecordData];
     
     // 这里对主界面进行reload，主界面就不会有延迟反应
     [self.mainViewController.tableView reloadData];
@@ -206,11 +207,13 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.destructiveButtonIndex) {
-
-        [_recordArray removeObjectAtIndex:self.updateIndex];
         
-        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        [delegate saveRecordData];
+        RecordDAO *recordDAO = [[RecordDAO alloc] init];
+        BOOL deleted = [recordDAO deleteRecord:_record];
+        
+        if (deleted) {
+            [_delegate.recordArray removeObject:_record];
+        }
         
         [self.mainViewController.tableView reloadData];
         // 返回主界面
@@ -227,5 +230,6 @@ static inline BOOL isEmpty(id thing) {
     || ([thing respondsToSelector:@selector(count)]
         && [(NSArray *)thing count] == 0);
 }
+
 
 @end

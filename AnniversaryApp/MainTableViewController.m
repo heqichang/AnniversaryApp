@@ -15,7 +15,18 @@
 #import "CategoryMenuTableViewController.h"
 #import "FPPopoverController.h"
 
+#import "Record.h"
+#import "RecordCategory.h"
+
+#import "RecordDAO.h"
+
 @interface MainTableViewController ()
+{
+    NSMutableArray * _showedArray;
+    UIButton * _menuButton;
+    FPPopoverController * _popover;
+    AppDelegate * _delegate;
+}
 
 @end
 
@@ -30,11 +41,6 @@
     return self;
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    //[self.tableView reloadData];
-//}
 
 - (void)viewDidLoad
 {
@@ -49,26 +55,20 @@
     }
     
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    _recordArray = delegate.recordDateDicArray;
-    
+    _delegate = delegate;
+    _showedArray = delegate.recordArray;
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, self.navigationController.navigationBar.bounds.size.height)];
     view.backgroundColor = [UIColor clearColor];
-//    UILabel *label1 = [[UILabel alloc] initWithFrame:view.frame];
-//    label1.text = @"全部";
-//    label1.textAlignment = NSTextAlignmentCenter;
-//    
-//    
-//    [view addSubview:label1];
     
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _menuButton = button1;
     button1.frame = view.frame;
     [button1 setTitle:@"全部" forState:UIControlStateNormal];
     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button1 addTarget:self action:@selector(clickTitle:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button1];
     
-    //[label1 sizeToFit];
     self.navigationItem.titleView = view;
 }
 
@@ -91,7 +91,7 @@
 {
 
     // Return the number of rows in the section.
-    return _recordArray.count;
+    return [_showedArray count];
 }
 
 
@@ -100,19 +100,19 @@
     NSString *reuseIdentifier = @"cell";
     MainTableViewCell *cell = (MainTableViewCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    NSDictionary *data = [_recordArray objectAtIndex:indexPath.row];
-    
-    cell.titleLabel.text = [data objectForKey:@"title"];
-    cell.dateLabel.text = [data objectForKey:@"date"];
-    
-    
     // 有个方法 timeIntervalSinceNow 但不正确，如果正好设置前一天或者后一天显示有误
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
+
+    Record *record = _showedArray[indexPath.row];
+    cell.titleLabel.text = record.title;
+    cell.dateLabel.text = [formatter stringFromDate:record.date];
     
-    NSDate *past = [formatter dateFromString:[data objectForKey:@"date"]];
+    
     NSDate *now = [NSDate date];
     now = [formatter dateFromString:[formatter stringFromDate:now]];
+    NSDate *past = record.date;
+    past = [formatter dateFromString:[formatter stringFromDate:past]];
     NSTimeInterval distance = [past timeIntervalSinceDate:now];
     NSInteger iDat = distance / ( 86400 ) ;
     NSString *distanceString = [NSString stringWithFormat:@"%d", (iDat < 0 ? -1 * iDat : iDat)];
@@ -156,9 +156,6 @@
         cell.daysLabel.attributedText = attributedString;
     }
     
-    //cell.daysLabel.text = distanceString;
-    //cell.index = indexPath.row;
-    
     return cell;
 }
 
@@ -185,12 +182,14 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        NSLog(@"%d", indexPath.row);
+        RecordDAO *recordDAO = [[RecordDAO alloc] init];
+        BOOL deleted = [recordDAO deleteRecord:_showedArray[indexPath.row]];
         
-        [_recordArray removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        [delegate saveRecordData];
+        if (deleted) {
+            [_delegate.recordArray removeObject:_showedArray[indexPath.row]];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
 }
 
@@ -222,29 +221,21 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //MainTableViewCell *cell = (MainTableViewCell *)sender;
     
     
     if ([[segue identifier] isEqualToString:@"ShowUpdate"]) {
+        
         EditViewController *controller = (EditViewController *)[segue destinationViewController];
-        
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        NSDictionary *dic = [_recordArray objectAtIndex:path.row];
-        controller.editTitle = [dic objectForKey:@"title"];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-        controller.selectedDate = [formatter dateFromString:[dic objectForKey:@"date"]];
+        Record *record = _delegate.recordArray[path.row];
         
-        controller.categoryString = [dic objectForKey:@"category"];
-        controller.categoryID = [dic objectForKey:@"categoryID"];
         controller.isUpdate = YES;
-        controller.updateIndex = path.row;
+        controller.record = record;
         controller.mainViewController = self;
         
     }
     else if([[segue identifier] isEqualToString:@"ShowAdd"]) {
         EditViewController *controller = (EditViewController *)[segue destinationViewController];
-        //controller.dateArray = _recordArray;
         controller.mainViewController = self;
     }
 }
@@ -259,23 +250,34 @@
     _popover.delegate = self;
     _popover.title = nil;
     _popover.tint = FPPopoverWhiteTint;
-    //_popover.contentSize = CGSizeMake(300, 300);
     _popover.arrowDirection = FPPopoverArrowDirectionAny;
     _popover.border = NO;
     [_popover presentPopoverFromView:sender];
     
 }
 
--(void)selectedTableRow:(NSUInteger)rowNum
+-(void)selectedCategory:(RecordCategory *)category
 {
-    NSLog(@"SELECTED ROW %d",rowNum);
+    NSString *title = @"全部";
+    if (category) {
+        title = category.name;
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", category];
+        _showedArray = [[_delegate.recordArray  filteredArrayUsingPredicate:predicate] mutableCopy];
+    } else {
+        _showedArray = _delegate.recordArray;
+    }
+    
+    [_menuButton setTitle:title forState:UIControlStateNormal];
+    [self.tableView reloadData];
     [_popover dismissPopoverAnimated:YES];
 }
+
+#pragma mark FPPopoverControllerDelegate method
 
 - (void)presentedNewPopoverController:(FPPopoverController *)newPopoverController
           shouldDismissVisiblePopover:(FPPopoverController*)visiblePopoverController
 {
-    [visiblePopoverController dismissPopoverAnimated:YES];
+    //[visiblePopoverController dismissPopoverAnimated:YES];
 }
 
 
