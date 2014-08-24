@@ -7,7 +7,14 @@
 //
 
 #import "CoreDAO.h"
+@class Record;
+@class RecordCategory;
 
-@interface RecordDao : CoreDAO
+@interface RecordDAO : CoreDAO
+
+- (Record *)addRecordTitle:(NSString *)title date:(NSDate *)date category:(RecordCategory *)category;
+- (void)updateRecord:(Record *)record;
+- (BOOL)deleteRecord:(Record *)record;
+- (NSMutableArray *)findAll;
 
 @end
